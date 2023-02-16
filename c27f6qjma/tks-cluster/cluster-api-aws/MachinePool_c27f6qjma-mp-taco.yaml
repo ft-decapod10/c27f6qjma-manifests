@@ -1,0 +1,30 @@
+# Source: cluster-api-aws/templates/machine-pool.yaml
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachinePool
+metadata:
+  name: c27f6qjma-mp-taco
+  namespace: c27f6qjma
+spec:
+  clusterName: c27f6qjma
+  replicas: 3
+  template:
+    metadata:
+      labels:
+            servicemesh: enabled
+            taco-ingress-gateway: enabled
+            taco-lma: enabled
+    spec:
+      bootstrap:
+        configRef:
+          apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+          kind: KubeadmConfig
+          name: c27f6qjma-mp-taco
+          namespace: c27f6qjma
+      clusterName: c27f6qjma
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
+        kind: AWSMachinePool
+        name: c27f6qjma-mp-taco
+        namespace: c27f6qjma
+      version: v1.22.5
+
